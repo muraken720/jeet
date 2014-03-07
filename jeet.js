@@ -4,12 +4,20 @@ var postcss = require('postcss'),
     css = postcss.parse(inFile);
 
 var contenter = postcss(function (css) {
-    var frac = css.rules[0].decls[0]._value,
-        ratioW = (frac.split("/")[0] / frac.split("/")[1] * 100);
     css.eachRule(function (rule) {
         if ( rule.selector.match(/.foo/) ) {
-            rule.decls[0].removeSelf();
-            rule.prepend({ prop: 'width', value: ratioW + '%'});
+
+            rule.eachDecl(function (decl, i) {
+              if(decl.prop == 'column') {
+                var frac = decl._value,
+                    ratioW = (frac.split("/")[0] / frac.split("/")[1] * 100);
+                rule.remove(i);
+                rule.prepend({prop: 'float', value: 'left'});
+                rule.prepend({prop: 'width', value: ratioW + '%'});
+              }
+            });
+
+
         }
     });
 });

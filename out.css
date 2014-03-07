@@ -1,3 +1,5 @@
 .foo {
-    width: 25%;
+    width: 12.5%;
+    float: left;
+    background: red;
 }
