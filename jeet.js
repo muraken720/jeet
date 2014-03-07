@@ -8,7 +8,7 @@ var contenter = postcss(function (css) {
         if ( rule.selector.match(/.foo/) ) {
 
             rule.eachDecl(function (decl, i) {
-              if(decl.prop == 'column') {
+              if(decl.prop == 'span') {
                 var frac = decl._value,
                     ratioW = (frac.split("/")[0] / frac.split("/")[1] * 100);
                 rule.remove(i);
